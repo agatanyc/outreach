@@ -7,7 +7,6 @@
 #       email to send
 #       script
 
-from pprint import pprint
 import sys
 
 def slurp(name):
@@ -24,11 +23,10 @@ def process(form, data):
     template = slurp(form)
     contacts = slurp(data)
     for line in contacts.splitlines():
-        name, last, mail = line.split()
-        pprint((name, last, mail))
-        output = template.format(name=name, last=last, mail=mail)
-        pprint(output)
-        spit(mail, output)
+        if not line.startswith('#'):
+            name, last, mail = line.split()
+            output = template.format(name=name, last=last, mail=mail)
+            spit(mail + ".eml", output)
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
