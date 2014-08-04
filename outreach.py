@@ -14,6 +14,15 @@ def slurp(name):
     with open(name) as file:
         return file.read()
 
+def spat(name, text):
+    """(str, str) -> NoneType
+
+    Creates new 'name' file or appends to existing file.  The content of the
+    file is 'text'.
+    """
+    with open(name, 'a') as file:
+        file.write(text)
+
 def spit(name, text):
     """(str, str) -> NoneType"""
     with open(name, 'w') as file:
@@ -27,6 +36,7 @@ def process(form, data):
             name, last, mail = line.split()
             output = template.format(name=name, last=last, mail=mail)
             spit(mail + ".eml", output)
+            spat('send', "mutt -H - < " + mail + ".eml\n")
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
