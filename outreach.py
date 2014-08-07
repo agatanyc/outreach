@@ -7,6 +7,7 @@
 #       email to send
 #       script
 
+import os
 import sys
 
 def slurp(name):
@@ -31,12 +32,15 @@ def spit(name, text):
 def process(form, data):
     template = slurp(form)
     contacts = slurp(data)
+    folder = 'emails'
+    os.mkdir(folder)
     for line in contacts.splitlines():
         if not line.startswith('#'):
             name, last, mail = line.split()
             output = template.format(name=name, last=last, mail=mail)
-            spit(mail + ".eml", output)
-            spat('send', "mutt -H - < " + mail + ".eml\n")
+            file = folder + '/' + mail + '.eml'
+            spit(file, output)
+            spat('send', "mutt -H - < " + file + "\n")
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
