@@ -32,7 +32,7 @@ def spit(name, text):
 def process(form, data):
     template = slurp(form)
     contacts = slurp(data)
-    folder = 'emails'
+    folder = 'mail'
     os.mkdir(folder)
     for line in contacts.splitlines():
         if not line.startswith('#'):
