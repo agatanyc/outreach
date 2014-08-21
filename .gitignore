@@ -1,3 +1,4 @@
 *.eml
 *.md.html
 __pycache__/
+/mail/send
