@@ -1,11 +1,11 @@
-"""Generates email from a template and a list of contacts."""
+"""Generate emails from a template and a list of contacts.
 
-#   inputs:
-#       contact info
-#       template
-#   outputs:
-#       email to send
-#       script
+   This program reads a template file and a contact list, and generates a set
+   of email files, along with a shell script that may be run to send the
+   emails.  The template and contact list file names are passed as command line
+   arguments.  The emails and the 'send' script are written to a 'mail'
+   subdirectory.
+"""
 
 from pprint import pprint
 import sys
