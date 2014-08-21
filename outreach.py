@@ -40,7 +40,7 @@ def process(form, data):
             output = template.format(name=name, last=last, mail=mail)
             file = folder + '/' + mail + '.eml'
             spit(file, output)
-            spat('send', "mutt -H - < " + file + "\n")
+            spat(folder + '/send', "mutt -H - < " + file + "\n")
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
