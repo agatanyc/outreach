@@ -1,2 +1,3 @@
 *.eml
 *.md.html
+__pycache__/
