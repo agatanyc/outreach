@@ -7,13 +7,22 @@
    subdirectory.
 """
 
-from pprint import pprint
+import os
 import sys
 
 def slurp(name):
     """(str) -> str"""
     with open(name) as file:
         return file.read()
+
+def spat(name, text):
+    """(str, str) -> NoneType
+
+    Creates new 'name' file or appends to existing file.  The content of the
+    file is 'text'.
+    """
+    with open(name, 'a') as file:
+        file.write(text)
 
 def spit(name, text):
     """(str, str) -> NoneType"""
@@ -23,12 +32,15 @@ def spit(name, text):
 def process(form, data):
     template = slurp(form)
     contacts = slurp(data)
+    folder = 'emails'
+    os.mkdir(folder)
     for line in contacts.splitlines():
-        name, last, mail = line.split()
-        pprint((name, last, mail))
-        output = template.format(name=name, last=last, mail=mail)
-        pprint(output)
-        spit(mail, output)
+        if not line.startswith('#'):
+            name, last, mail = line.split()
+            output = template.format(name=name, last=last, mail=mail)
+            file = folder + '/' + mail + '.eml'
+            spit(file, output)
+            spat('send', "mutt -H - < " + file + "\n")
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
