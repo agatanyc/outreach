@@ -11,21 +11,26 @@ import os
 import sys
 
 def slurp(name):
-    """(str) -> str"""
+    """(str) -> str
+    
+    Return the content of file 'name'.
+    """
     with open(name) as file:
         return file.read()
 
 def spat(name, text):
     """(str, str) -> NoneType
-
-    Creates new 'name' file or appends to existing file.  The content of the
-    file is 'text'.
+    
+    Appends 'text' to file 'name', creating the file if necessary.
     """
     with open(name, 'a') as file:
         file.write(text)
 
 def spit(name, text):
-    """(str, str) -> NoneType"""
+    """(str, str) -> NoneType
+    
+    Write 'text' to file 'name', creating the file if necessary.
+    """
     with open(name, 'w') as file:
         file.write(text)
 
