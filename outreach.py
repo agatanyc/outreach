@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """Generate emails from a template and a list of contacts.
 
    This program reads a template file and a contact list, and generates a set
@@ -10,28 +12,28 @@
 import os
 import sys
 
-def slurp(name):
+def slurp(path):
     """(str) -> str
     
-    Return the content of file 'name'.
+    Return the content of file 'path'.
     """
-    with open(name) as file:
+    with open(path) as file:
         return file.read()
 
-def spat(name, text):
+def spat(path, text):
     """(str, str) -> NoneType
     
-    Appends 'text' to file 'name', creating the file if necessary.
+    Appends 'text' to file 'path', creating the file if necessary.
     """
-    with open(name, 'a') as file:
+    with open(path, 'a') as file:
         file.write(text)
 
-def spit(name, text):
+def spit(path, text):
     """(str, str) -> NoneType
     
-    Write 'text' to file 'name', creating the file if necessary.
+    Write 'text' to file 'path', creating the file if necessary.
     """
-    with open(name, 'w') as file:
+    with open(path, 'w') as file:
         file.write(text)
 
 def process(form, data):
@@ -43,9 +45,9 @@ def process(form, data):
         if not line.startswith('#'):
             name, last, mail = line.split()
             output = template.format(name=name, last=last, mail=mail)
-            file = folder + '/' + mail + '.eml'
-            spit(file, output)
-            spat(folder + '/send', "mutt -H - < " + file + "\n")
+            path = folder + '/' + mail + '.eml'
+            spit(path, output)
+            spat(folder + '/send', "mutt -H - < " + path + "\n")
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
