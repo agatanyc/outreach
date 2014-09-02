@@ -11,6 +11,7 @@
 
 import os
 import sys
+import shutil
 
 def slurp(path):
     """(str) -> str
@@ -40,6 +41,8 @@ def process(form, data):
     template = slurp(form)
     contacts = slurp(data)
     folder = 'mail'
+    if os.path.exists(folder):
+        shutil.rmtree(folder)
     os.mkdir(folder)
     for line in contacts.splitlines():
         if not line.startswith('#'):
